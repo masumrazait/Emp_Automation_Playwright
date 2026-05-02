@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <description>Employee Management System Automation Framework - Playwright, Cucumber BDD, Java</description>
+  <description>Employee Management System Automation - Playwright, Cucumber BDD, Java</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.scm.NullSCM"/>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/masumrazait/Emp_Automation_Playwright.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/main</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="emptyList"/>
+    <extensions/>
+  </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H/5 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>C:\Users\masum\OneDrive\Desktop\Emp_Automation</customWorkspace>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>set JAVA_HOME=C:\Program Files\Java\jdk-11
-set PATH=%JAVA_HOME%\bin;%PATH%
-set MAVEN_HOME=C:\Users\masum\OneDrive\Desktop\Emp_Automation\apache-maven-3.9.4
-set PATH=%MAVEN_HOME%\bin;%PATH%
-cd /d C:\Users\masum\OneDrive\Desktop\Emp_Automation
-%MAVEN_HOME%\bin\mvn clean test</command>
+      <command>set JAVA_HOME=C:\Program Files\Java\jdk-11&#xd;
+set PATH=%JAVA_HOME%\bin;%PATH%&#xd;
+cd /d %WORKSPACE%&#xd;
+mvn clean test</command>
     </hudson.tasks.BatchFile>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <healthScaleFactor>1.0</healthScaleFactor>
+      <healthScaleFactorThresholds/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
   <buildWrappers/>
 </project>
