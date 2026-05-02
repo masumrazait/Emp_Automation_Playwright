@@ -7,7 +7,27 @@ set MAVEN_HOME=C:\apache-maven-3.9.3&#xd;
 set PATH=%MAVEN_HOME%\bin;%JAVA_HOME%\bin;%PATH%&#xd;
 cd /d %WORKSPACE%&#xd;
 mvn -B clean test</command>
-</hudson.tasks.BatchFile>  <description>Employee Management System Automation - Playwright, Cucumber BDD, Java</description>
+</hudson.tasks.BatchFile><!-- xml -->
+<!-- Preferred: use Jenkins Maven build step (requires Maven configured as 'Maven-3.9.3' in Global Tool Configuration) -->
+<builders>
+  <hudson.tasks.Maven>
+    <targets>clean test</targets>
+    <mavenName>Maven-3.9.3</mavenName>
+    <pom>pom.xml</pom>
+    <usePrivateRepository>false</usePrivateRepository>
+  </hudson.tasks.Maven>
+</builders>
+
+<!-- Replace multiple builders with a single batch step that uses the Maven bundled in the workspace -->
+<builders>
+  <hudson.tasks.BatchFile>
+    <command>set JAVA_HOME=C:\Program Files\Java\jdk-11&#xd;
+set MAVEN_HOME=%WORKSPACE%\apache-maven-3.9.4&#xd;
+set PATH=%MAVEN_HOME%\bin;%JAVA_HOME%\bin;%PATH%&#xd;
+cd /d %WORKSPACE%&#xd;
+"%MAVEN_HOME%\bin\mvn.cmd" -B clean test</command>
+  </hudson.tasks.BatchFile>
+</builders>  <description>Employee Management System Automation - Playwright, Cucumber BDD, Java</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM">
@@ -40,9 +60,10 @@ mvn -B clean test</command>
   <builders>
     <hudson.tasks.BatchFile>
       <command>set JAVA_HOME=C:\Program Files\Java\jdk-11&#xd;
-set PATH=%JAVA_HOME%\bin;%PATH%&#xd;
+set MAVEN_HOME=%WORKSPACE%\apache-maven-3.9.4&#xd;
+set PATH=%MAVEN_HOME%\bin;%JAVA_HOME%\bin;%PATH%&#xd;
 cd /d %WORKSPACE%&#xd;
-mvn clean test</command>
+"%MAVEN_HOME%\bin\mvn.cmd" -B clean test</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
