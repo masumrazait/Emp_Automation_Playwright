@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <description>Employee Management System Automation - Playwright, Cucumber BDD, Java</description>
+<!-- xml -->
+<hudson.tasks.BatchFile>
+  <command>set JAVA_HOME=C:\Program Files\Java\jdk-11&#xd;
+set MAVEN_HOME=C:\apache-maven-3.9.3&#xd;
+set PATH=%MAVEN_HOME%\bin;%JAVA_HOME%\bin;%PATH%&#xd;
+cd /d %WORKSPACE%&#xd;
+mvn -B clean test</command>
+</hudson.tasks.BatchFile>  <description>Employee Management System Automation - Playwright, Cucumber BDD, Java</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM">
